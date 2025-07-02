@@ -125,6 +125,30 @@ layout: default
 Article schema specification:
 https://schema.org/TechArticle
 {% endcomment %}
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Ethereum Improvement Proposals",
+      "item": "{{site.url}}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{% if page.category == "ERC" %}ERC{% else %}EIP{% endif %}-{{ page.eip }}",
+      "item": "{{site.url}}/EIPS/eip-{{ page.eip }}"  
+    }
+  ]
+}
+</script>
+
+
 <script type="application/ld+json">
   {
     "@context": "http://schema.org",

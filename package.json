@@ -1,0 +1,15 @@
+{
+  "name": "eips",
+  "version": "1.0.0",
+  "description": "> **_ATTENTION_**: The EIPs repository has recently [undergone](https://github.com/ethereum/EIPs/pull/7206) a separation of ERCs and EIPs. ERCs are now accessible at [https://github.com/ethereum/ercs](https://github.com/ethereum/ercs). All new ERCs and updates to existing ones must be directed at this new repository. The editors apologize for this inconvenience.",
+  "main": "index.js",
+  "scripts": {
+    "get-ercs": "node scripts/get-ercs.js",
+    "archive": "powershell -ExecutionPolicy Bypass -File dev-scripts.ps1 archive",
+    "restore": "powershell -ExecutionPolicy Bypass -File dev-scripts.ps1 restore",
+    "dev": "bundle exec jekyll serve --host 0.0.0.0 --port 4000 --incremental --verbose"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
