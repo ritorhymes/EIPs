@@ -14,6 +14,26 @@ $content-width: 1152px;
   }
 }
 
+// Force hide entire desktop navigation on mobile - override Bootstrap d-flex
+@media screen and (max-width: 600px) {
+  .site-header .site-nav,
+  .site-header .site-nav.d-flex,
+  .site-nav,
+  .site-nav.d-flex,
+  nav.site-nav,
+  nav.site-nav.d-flex {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+  
+  .site-nav .trigger,
+  .site-nav .trigger.row {
+    display: none !important;
+  }
+}
+
 .page-content {
   a.anchor-link {
     width: 16px;
@@ -96,7 +116,6 @@ h1 a {
     display: none;
   }
 }
-
 // This will make ALL tables scrollable
 .page-content table {
   display: block;
@@ -156,3 +175,201 @@ h1 a {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+// Mobile Drawer Styles
+.mobile-drawer {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .mobile-drawer {
+    display: block !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1050; // Bootstrap modal is 1050, match it
+    transform: translateY(180px); // Matches the height of the bottom component to hide it by default
+    transition: transform 0.3s ease-in-out;
+    
+    &.is-open {
+      transform: translateY(0); // Show full component
+    }
+    
+    &__top-bar {
+      height: 40px;
+      background: #111;
+      border: 1px solid white;
+      border-bottom: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      position: relative;
+    }
+    
+    &__scroll-top {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      
+      &.is-hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      
+      &:not(.is-hidden) {
+        opacity: 1;
+        pointer-events: all;
+      }
+      
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+    
+    &__toc-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      
+      &.has-toc {
+        display: flex;
+      }
+      
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+    
+    &__menu-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+    // Bottom section of component where ToC and menu content is displayed
+    &__bottom {
+      height: 180px;
+      background: #111;
+      border: 1px solid white;
+      border-top: none;
+      border-bottom: none;
+      overflow-y: auto;
+      overflow-x: hidden;
+      position: relative;
+      
+      // Custom scrollbar
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: #222;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: white;
+        border-radius: 3px;
+      }
+      
+      // Firefox
+      scrollbar-width: thin;
+      scrollbar-color: white #222;
+    }
+    
+    &__content {
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      display: none;
+      
+      &.is-active {
+        display: block;
+        opacity: 1;
+      }
+      
+      nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+      }
+      
+      nav li {
+        margin: 0;
+      }
+      
+      a {
+        color: white;
+        text-decoration: none;
+        display: block;
+        padding: 8px 20px;
+        transition: background 0.2s ease;
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+        }
+      }
+      
+      // ToC specific styles
+      &--toc {
+        h2, h3, h4 {
+          margin: 0;
+        }
+        
+        .toc-h2 {
+          padding-left: 20px;
+        }
+        
+        .toc-h3 {
+          padding-left: 40px;
+        }
+        
+        .toc-h4 {
+          padding-left: 60px;
+        }
+      }
+    }
+  }
+}
+
+// Hide mobile drawer on larger screens
+@media (min-width: 601px) {
+  .mobile-drawer {
+    display: none !important;
+  }
+}
