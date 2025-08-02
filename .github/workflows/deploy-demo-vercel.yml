@@ -1,0 +1,30 @@
+# .github/workflows/deploy-demo-vercel.yml
+
+name: Deploy Demo to Vercel
+
+on:
+  push:
+    branches:
+      - demo
+
+jobs:
+  deploy:
+    environment: demo       
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10.13.1
+
+      - name: Deploy Demo to Vercel (cold build)
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token:      ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id:     ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args:       "--prod --yes --force"
